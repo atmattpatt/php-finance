@@ -13,6 +13,7 @@
 
 /* {{{ finance_functions[] */
 zend_function_entry finance_functions[] = {
+	PHP_FE(simple_interest, NULL)
 	{ NULL, NULL, NULL }
 };
 /* }}} */
@@ -94,6 +95,20 @@ PHP_MINFO_FUNCTION(finance)
 
 }
 /* }}} */
+
+PHP_FUNCTION(simple_interest)
+{
+	double pv, fv, rate;
+	int time;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddl", &pv, &rate, &time) == FAILURE) {
+		return;
+	}
+
+	fv = pv * rate * (double) time;
+
+	RETURN_DOUBLE(fv);
+}
 
 #endif /* HAVE_FINANCE */
 
