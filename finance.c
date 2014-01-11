@@ -13,9 +13,10 @@
 /* {{{ finance_functions[] */
 zend_function_entry finance_functions[] = {
 	PHP_FE(finance_simple_interest, NULL)
-	PHP_FE(finance_compound_interest, NULL)
 	PHP_FE(finance_effective_rate, NULL)
 	PHP_FE(finance_nominal_rate, NULL)
+	PHP_FE(finance_pv, NULL)
+	PHP_FE(finance_fv, NULL)
 	{ NULL, NULL, NULL }
 };
 /* }}} */
@@ -112,20 +113,6 @@ PHP_FUNCTION(finance_simple_interest)
 	RETURN_DOUBLE(fv);
 }
 
-PHP_FUNCTION(finance_compound_interest)
-{
-	double pv, fv, rate, per;
-	int nper = 1;
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &pv, &rate, &per, &nper) == FAILURE) {
-		return;
-	}
-
-	fv = pv * pow((1. + rate / (double) nper), ((double) nper * per));
-
-	RETURN_DOUBLE(fv);
-}
-
 PHP_FUNCTION(finance_effective_rate)
 {
 	double nrate, erate;
@@ -152,6 +139,33 @@ PHP_FUNCTION(finance_nominal_rate)
 	nrate = (double) nper * (pow((erate + 1.), (1. / (double) nper)) - 1.);
 
 	RETURN_DOUBLE(nrate);
+}
+
+PHP_FUNCTION(finance_pv)
+{
+	double fv, pv, rate, per;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd", &fv, &rate, &per) == FAILURE) {
+		return;
+	}
+
+	pv = fv / pow((1 + rate), per);
+	
+	RETURN_DOUBLE(pv);
+}
+
+PHP_FUNCTION(finance_fv)
+{
+	double pv, fv, rate, per;
+	int nper = 1;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &pv, &rate, &per, &nper) == FAILURE) {
+		return;
+	}
+
+	fv = pv * pow((1. + rate / (double) nper), ((double) nper * per));
+
+	RETURN_DOUBLE(fv);
 }
 
 #endif /* HAVE_FINANCE */

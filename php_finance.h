@@ -51,9 +51,11 @@ PHP_RSHUTDOWN_FUNCTION(finance);
 PHP_MINFO_FUNCTION(finance);
 
 PHP_FUNCTION(finance_simple_interest);
-PHP_FUNCTION(finance_compound_interest);
 PHP_FUNCTION(finance_effective_rate);
 PHP_FUNCTION(finance_nominal_rate);
+
+PHP_FUNCTION(finance_pv);
+PHP_FUNCTION(finance_fv);
 
 #ifdef ZTS
 #include "TSRM.h"
