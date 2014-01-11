@@ -50,7 +50,7 @@ PHP_RINIT_FUNCTION(finance);
 PHP_RSHUTDOWN_FUNCTION(finance);
 PHP_MINFO_FUNCTION(finance);
 
-PHP_FUNCTION(simple_interest);
+PHP_FUNCTION(finance_simple_interest);
 
 #ifdef ZTS
 #include "TSRM.h"

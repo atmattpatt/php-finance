@@ -11,7 +11,7 @@
 
 /* {{{ finance_functions[] */
 zend_function_entry finance_functions[] = {
-	PHP_FE(simple_interest, NULL)
+	PHP_FE(finance_simple_interest, NULL)
 	{ NULL, NULL, NULL }
 };
 /* }}} */
@@ -94,7 +94,7 @@ PHP_MINFO_FUNCTION(finance)
 }
 /* }}} */
 
-PHP_FUNCTION(simple_interest)
+PHP_FUNCTION(finance_simple_interest)
 {
 	double pv, fv, rate;
 	int time;
