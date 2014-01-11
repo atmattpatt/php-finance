@@ -1,9 +1,7 @@
 --TEST--
-simple_interest
---SKIPIFF--
+Simple interest
+--SKIPIF--
 <?php if (!extension_loaded("finance")) print "skip"; ?>
---INI--
-zend.enable_gc=0
 --FILE--
 <?php
 $principle = 5000.00;
